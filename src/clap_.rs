@@ -1,4 +1,3 @@
-extern crate clap;
 ///////////////// clap is a simple-to-use, efficient, and full-featured library 
 /////////// for parsing command line arguments and subcommands when writing
 ////// console/terminal applications.

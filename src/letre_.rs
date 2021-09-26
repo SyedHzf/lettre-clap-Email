@@ -1,31 +1,13 @@
-// pub fn new(email_address : String, subject : String,text : String) -> Result<(),()>{
-//    let email =  EmailBuilder::new()
-//         .to(email_address)
-//         .from(String::from("rustingwork@gmail.com"))
-//         .subject(subject)
-//         .text(text)
-//         .build() // builden pattern 
-//         .unwrap();
-//         let mut mailer = StubTransport::new_positive();
-
-//         let result = mailer.send(email.into());
-    
-//         result
-    
-// }
-
-extern crate lettre;
 //////////////////////////////// Provides a simple email builder and several transports.
 //////////////////////////////// This mailer contains the available transports for your emails.
-extern crate lettre_email;
 //////////////////////////////// Lettre_email provides a simple email builder.
 use lettre::{Message, SmtpTransport, Transport};
+use lettre::transport::smtp::authentication::Credentials;
 //////////////////////////////// Message -> Email message which can be formatted.
 //////////////////////////////// StmpTransport -> Sends emails using the SMTP protocol.
 //////////////////////////////// Transport -> Represents an Email transport.
 
 pub fn new(to: String , subject : String , body : String) {
-    tracing_subscriber::fmt::init();
 
     let email = Message::builder()
         .from("rustingwork@gmail.com".parse().unwrap())
@@ -34,8 +16,15 @@ pub fn new(to: String , subject : String , body : String) {
         .body(body)
         .unwrap();
 
+        let creds = Credentials::new("rustingwork@gmail.com".to_string(), "syed@github2023".to_string());
+
+// Open a remote connection to gmail
+    let mailer = SmtpTransport::relay("smtp.gmail.com")
+        .unwrap()
+        .credentials(creds)
+        .build();
     // Open a local connection on port 25
-    let mailer = SmtpTransport::unencrypted_localhost();
+    //let mailer = SmtpTransport::unencrypted_localhost();
 
     // Send the email
 
