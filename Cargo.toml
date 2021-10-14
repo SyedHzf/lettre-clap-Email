@@ -9,7 +9,7 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [[bin]]
-name = "cli"
+name = "main"
 
 [dependencies]
 anyhow = "1.0.44"

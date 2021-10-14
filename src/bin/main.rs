@@ -1,4 +1,4 @@
-use clap::{AppSettings, Clap};
+use clap::{Clap};
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
 
@@ -8,8 +8,11 @@ const PASSWORD: &'static str = "PASSWORD";
 const EMAIL_SERVER: &'static str = "smtp.gmail.com";
 
 #[derive(Clap)]
-
-#[clap(setting = AppSettings::ColoredHelp)]
+#[clap(
+    version = "0.0.1",
+    author = "Syed Huzaifa Ali <rustingwork@gmail>"
+)]
+// #[clap(setting = AppSettings::ColoredHelp)]
 struct Email {
     #[clap(short, long)]
     name: String,
@@ -66,7 +69,7 @@ fn main() -> anyhow::Result<()> {
         .unwrap()
         .credentials(creds)
         .build();
-
+        mailer.send(&email);
     // Send the email
     match mailer.send(&email) {
         Ok(_) => println!("Email sent successfully!"),
